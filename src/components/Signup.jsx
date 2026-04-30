@@ -1,6 +1,19 @@
 export default function Signup() {
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
+        // è un oggetto che contiene tutti i dati del form, molto comodo da utilizzare quando i form sono lunghi e complessi, è molto più difficile da resettare rispetto all'utilizzo dello state, ed è meno performante rispetto all'utilizzo dello state, ma è molto più semplice da utilizzare rispetto all'utilizzo dei ref. i campi del form devono per forza avere il decoratore "name".
+        const fd = new FormData(event.target);
+        // con questo metodo possiamo ottenere il valore di un campo specifico.
+        const acquisitionChannels = fd.getAll('acquisition');
+        // con questo metodo possiamo trasformare il FormData in un oggetto normale, ma è un metodo molto poco performante, quindi è sconsigliato utilizzarlo quando i form sono lunghi e complessi, ma è molto comodo da utilizzare quando i form sono corti e semplici.
+        const data = Object.fromEntries(fd.entries());
+        data.acquisition = acquisitionChannels;
+    }
+
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <h2>Welcome on board!</h2>
       <p>We just need a little bit of data from you to get you started 🚀</p>
 
