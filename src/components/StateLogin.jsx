@@ -1,32 +1,35 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 // questo è il modo più comune e semplice per la gestione degli user input in React
-export default function Login() {
-
+export default function StateLogin() {
   const [formParameters, setFormParameters] = useState({
-    email: '',
-    password: ''
+    email: "",
+    password: "",
   });
 
+  // esempio validazione email, è molto più performante rispetto all'utilizzo di ref o FormData, ma è molto più scomodo da utilizzare quando i form sono lunghi e complessi, ma è molto più semplice da utilizzare rispetto all'utilizzo dei ref o FormData.
+  const emailIsValid =
+    formParameters.email !== "" && !formParameters.email.includes("@");
+
   const handleSubmit = (event) => {
-    event.preventDefault();  
+    event.preventDefault();
     console.log(formParameters);
-  }
+  };
 
   const handleChangeParameters = (event) => {
     setFormParameters({
       ...formParameters,
-      [event.target.name]: event.target.value
+      [event.target.name]: event.target.value,
     });
-  }
+  };
 
   // reset valori form quando gestiti con gli state
-   const handleReset = (event) => {
-        setFormParameters({
-          email: '',
-          password: '' ,
-        })
-    }
+  const handleReset = (event) => {
+    setFormParameters({
+      email: "",
+      password: "",
+    });
+  };
   return (
     <form onSubmit={handleSubmit}>
       <h2>Login</h2>
@@ -34,18 +37,33 @@ export default function Login() {
       <div className="control-row">
         <div className="control no-margin">
           <label htmlFor="email">Email</label>
-          <input id="email" type="email" name="email" value={formParameters.email} onChange={handleChangeParameters} />
+          <input
+            id="email"
+            type="email"
+            name="email"
+            value={formParameters.email}
+            onChange={handleChangeParameters}
+          />
+          <div className="control-error">
+            {emailIsValid && "Please enter a valid email address"}
+          </div>
         </div>
 
         <div className="control no-margin">
           <label htmlFor="password">Password</label>
-          <input id="password" type="password" name="password" value={formParameters.password} onChange={handleChangeParameters} />
+          <input
+            id="password"
+            type="password"
+            name="password"
+            value={formParameters.password}
+            onChange={handleChangeParameters}
+          />
         </div>
       </div>
 
       <p className="form-actions">
         <button className="button button-flat">Reset</button>
-        <button className="button" >Login</button>
+        <button className="button">Login</button>
       </p>
     </form>
   );
