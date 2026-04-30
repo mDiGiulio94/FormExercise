@@ -10,6 +10,9 @@ export default function Signup() {
         // con questo metodo possiamo trasformare il FormData in un oggetto normale, ma è un metodo molto poco performante, quindi è sconsigliato utilizzarlo quando i form sono lunghi e complessi, ma è molto comodo da utilizzare quando i form sono corti e semplici.
         const data = Object.fromEntries(fd.entries());
         data.acquisition = acquisitionChannels;
+
+        // reset dei valori del form quando gestiti da FormData
+        event.target.reset();
     }
 
   return (

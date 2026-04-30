@@ -20,7 +20,13 @@ export default function Login() {
     });
   }
 
- 
+  // reset valori form quando gestiti con gli state
+   const handleReset = (event) => {
+        setFormParameters({
+          email: '',
+          password: '' ,
+        })
+    }
   return (
     <form onSubmit={handleSubmit}>
       <h2>Login</h2>
