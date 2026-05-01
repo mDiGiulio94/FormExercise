@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Input from "./Input";
 
 // questo è il modo più comune e semplice per la gestione degli user input in React
 export default function StateLogin() {
@@ -19,6 +20,7 @@ export default function StateLogin() {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(formParameters);
+    // conviene anche impostare delle validazioni al submit
   };
 
   const handleChangeParameters = (event) => {
@@ -51,31 +53,27 @@ export default function StateLogin() {
       <h2>Login</h2>
 
       <div className="control-row">
-        <div className="control no-margin">
-          <label htmlFor="email">Email</label>
-          <input
-            id="email"
-            type="email"
-            name="email"
-            onBlur={handleInputBlur}
-            value={formParameters.email}
-            onChange={handleChangeParameters}
-          />
-          <div className="control-error">
-            {emailIsValid && "Please enter a valid email address"}
-          </div>
-        </div>
+     <Input 
+     label="Email"
+     id="email"
+     type="email"
+     name="email"
+     onBlur={handleInputBlur}
+     value={formParameters.email}
+     onChange={handleChangeParameters}
+     error={didEdit.email && !formParameters.email.includes("@") && "Please enter a valid email address."}
+     />
 
-        <div className="control no-margin">
-          <label htmlFor="password">Password</label>
-          <input
-            id="password"
-            type="password"
-            name="password"
-            value={formParameters.password}
-            onChange={handleChangeParameters}
-          />
-        </div>
+     <Input 
+     label="Password"
+     id="password"
+     type="password"
+     name="password"
+     onBlur={handleInputBlur}
+     value={formParameters.password}
+     onChange={handleChangeParameters}
+     error={didEdit.password && formParameters.password.length < 6 && "Please enter a valid password (at least 6 characters)."}
+     />
       </div>
 
       <p className="form-actions">
