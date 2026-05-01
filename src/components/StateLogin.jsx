@@ -17,6 +17,7 @@ export default function StateLogin() {
   // esempio validazione email, è molto più performante rispetto all'utilizzo di ref o FormData, ma è molto più scomodo da utilizzare quando i form sono lunghi e complessi, ma è molto più semplice da utilizzare rispetto all'utilizzo dei ref o FormData.
   const emailIsInvalid =
    didEdit.email && !isEmail(formParameters.email) && !isNotEmpty(formParameters.email);
+  //  la logica di validazione viene spostata direttamente in una cartella di utilità, in questo modo è possibile riutilizzarla in più componenti, e mantenere il codice più pulito e leggibile.
 const passwordIsInvalid = didEdit.password && !hasMinLength(formParameters.password, 6) && !isNotEmpty(formParameters.password);
 
   const handleSubmit = (event) => {
