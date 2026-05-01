@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Input from "./Input";
+import { isEmail, isNotEmpty, hasMinLength } from "../util/validation";
 
 // questo è il modo più comune e semplice per la gestione degli user input in React
 export default function StateLogin() {
@@ -14,8 +15,9 @@ export default function StateLogin() {
 
 
   // esempio validazione email, è molto più performante rispetto all'utilizzo di ref o FormData, ma è molto più scomodo da utilizzare quando i form sono lunghi e complessi, ma è molto più semplice da utilizzare rispetto all'utilizzo dei ref o FormData.
-  const emailIsValid =
-   didEdit.email && !formParameters.email.includes("@");
+  const emailIsInvalid =
+   didEdit.email && !isEmail(formParameters.email) && !isNotEmpty(formParameters.email);
+const passwordIsInvalid = didEdit.password && !hasMinLength(formParameters.password, 6) && !isNotEmpty(formParameters.password);
 
   const handleSubmit = (event) => {
     event.preventDefault();
